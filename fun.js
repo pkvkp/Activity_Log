@@ -1,13 +1,4 @@
-//Store the 3 buttons in object
-
-const player = document.querySelector('.player');
-
-function clickHandler() {
-    const buttons = Array.from(this.children);
-    buttons.forEach(button => button.classList.toggle('hidden'))
-
-};
-player.addEventListener('click', clickHandler);
+// Store references to the player buttons
 var buttons = {
     play: document.getElementById('btn-play'),
     pause: document.getElementById('btn-pause')
@@ -101,7 +92,8 @@ var Spectrum = WaveSurfer.create({
 //Handle play button
 buttons.play.addEventListener("click", function () {
     Spectrum.play();
-
+    buttons.play.classList.add('hidden');
+    buttons.pause.classList.remove('hidden');
     buttons.pause.disabled = false;
     buttons.play.disabled = true;
 }, false);
@@ -109,8 +101,8 @@ buttons.play.addEventListener("click", function () {
 //Handle pause button
 buttons.pause.addEventListener("click", function () {
     Spectrum.pause();
-
-
+    buttons.pause.classList.add('hidden');
+    buttons.play.classList.remove('hidden');
     buttons.pause.disabled = true;
     buttons.play.disabled = false;
 }, false);
@@ -135,6 +127,8 @@ window.addEventListener("resize", function () {
     Spectrum.seekTo(currentProgress);
 
     // Enable/Disable respectively buttons
+    buttons.pause.classList.add('hidden');
+    buttons.play.classList.remove('hidden');
     buttons.pause.disabled = true;
     buttons.play.disabled = false;
 }, false);
